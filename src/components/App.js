@@ -22,7 +22,7 @@ function App() {
       ) : (
         "initializing..."
       )}
-      <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
+      {/* <footer>&copy; Nwitter {new Date().getFullYear()}</footer> */}
     </div>
   );
 }
