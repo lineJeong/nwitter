@@ -15,14 +15,23 @@ function App() {
     });
   }, []);
 
+  const refreshUser = async () => {
+    await authService.updateCurrentUser(authService.currentUser);
+    setUserObj(authService.currentUser);
+  };
+
   return (
     <div>
       {init ? (
-        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
+        <AppRouter
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+          refreshUser={refreshUser}
+        />
       ) : (
         "initializing..."
       )}
-      {/* <footer>&copy; Nwitter {new Date().getFullYear()}</footer> */}
+      <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
     </div>
   );
 }

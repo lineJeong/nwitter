@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
 
-const Navigation = () => {
+const Navigation = ({ userObj }) => {
+  // console.log(userObj);
   return (
     <nav>
       <ul>
@@ -14,7 +15,7 @@ const Navigation = () => {
         </li>
         <li>
           <Link to="/profile" element={<Profile />}>
-            My Proflie
+            {userObj.displayName}'s Proflie
           </Link>
         </li>
       </ul>
