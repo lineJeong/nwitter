@@ -10,6 +10,8 @@ function App() {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setUserObj(user);
+      } else {
+        setUserObj(null);
       }
       setInit(true);
     });
@@ -31,7 +33,9 @@ function App() {
       ) : (
         "initializing..."
       )}
-      <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
+      <footer className="footer">
+        &copy; Nwitter {new Date().getFullYear()}
+      </footer>
     </div>
   );
 }

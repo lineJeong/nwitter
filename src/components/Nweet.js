@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { dbService, storageService } from "fbase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Nweet = ({ id, text, isOwner, attachmentUrl }) => {
   const [editing, setEditing] = useState(false);
@@ -31,42 +33,48 @@ const Nweet = ({ id, text, isOwner, attachmentUrl }) => {
   };
 
   return (
-    <div key={id}>
+    <div key={id} className="nweet">
       {editing ? (
         <>
           {
             <>
-              isOwner &&
-              <form onSubmit={onSubmit}>
-                <input
-                  type={text}
-                  value={newNweet}
-                  onChange={onChange}
-                  placeholder="Edit your nweet"
-                  required
-                />
-                <input type="submit" value="Updata Nweet" />
-              </form>
-              <button onClick={toggleEditing}>Cancel</button>
+              {isOwner && (
+                <form onSubmit={onSubmit} className="container nweetEdit">
+                  <input
+                    type={text}
+                    value={newNweet}
+                    onChange={onChange}
+                    placeholder="Edit your nweet"
+                    required
+                    autoFocus
+                    className="formInput"
+                  />
+                  <input
+                    type="submit"
+                    value="Updata Nweet"
+                    className="formBtn"
+                  />
+                </form>
+              )}
+              <span onClick={toggleEditing} className="formBtn cancelBtn">
+                Cancel
+              </span>
             </>
           }
         </>
       ) : (
         <>
           <h4>{text}</h4>
-          {attachmentUrl && (
-            <img
-              src={attachmentUrl}
-              alt="attachment_url"
-              width="50px"
-              height="50px"
-            />
-          )}
+          {attachmentUrl && <img src={attachmentUrl} alt="attachment_url" />}
           {isOwner && (
-            <>
-              <button onClick={onDeleteClick}>Delete Nweet</button>
-              <button onClick={toggleEditing}>Edit Nweet</button>
-            </>
+            <div className="nweet__actions">
+              <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+              <span onClick={toggleEditing}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
           )}
         </>
       )}
